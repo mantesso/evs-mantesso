@@ -1,24 +1,27 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+**Préparation de la base de données**:
+     ```bash
+     rails db:setup
+     ```
+     -Ajoute des transactions pour aujourd'hui et hier.
 
-* Ruby version
+**Démarrer le serveur**:
+     ```bash
+     rails s
+     ```
 
-* System dependencies
+#### Utilisation
 
-* Configuration
+1. **Afficher le cours pour une date spécifique**:
+     ```
+     http://localhost:3000/potato_trades?date=2024-10-01
+     ```
 
-* Database creation
+2. **Afficher le meilleur gain possible pour une date spécifique**:
+     ```
+     http://localhost:3000/potato_trades/max_profit?date=2024-10-02
+     ```
 
-* Database initialization
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
