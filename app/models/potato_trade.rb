@@ -1,4 +1,6 @@
 class PotatoTrade < ApplicationRecord
+  TRADE_LIMIT = 100
+
   validates :time, presence: true, uniqueness: true
   validates :value, presence: true, numericality: { greater_than: 0 }
   validate :trading_hours

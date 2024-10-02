@@ -3,14 +3,18 @@ class PotatoTradesController < ApplicationController
 
   def index
     date = potato_params[:date]
-    @prices = PotatoTrade.where('DATE(time) = ?', date)
-    render json: @prices.as_json(only: %i[time value])
+    potato_trades = PotatoTrade.where('DATE(time) = ?', date)
+    render json: potato_trades.as_json(only: %i[time value])
   end
 
   def max_profit
     date = potato_params[:date]
-    @prices = PotatoTrade.where('DATE(time) = ?', date)
-    # todo.
+    prices_arr = fetch_prices_for_date(date)
+
+    calculator = PotatoTradeMaxProfitCalculator.new(prices_arr)
+    max_profit = calculator.max_profit * PotatoTrade::TRADE_LIMIT
+
+    render json: { date:, max_profit: }
   end
 
   private
@@ -23,5 +27,10 @@ class PotatoTradesController < ApplicationController
     return if params[:date].present?
 
     render json: { error: 'Date parameter is required.' }, status: :bad_request
+  end
+
+  # returns an array of price values for a given date
+  def fetch_prices_for_date(date)
+    PotatoTrade.where('DATE(time) = ?', date).pluck(:value)
   end
 end
