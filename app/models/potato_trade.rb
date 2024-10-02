@@ -8,6 +8,7 @@ class PotatoTrade < ApplicationRecord
   private
 
   def trading_hours
+    return if time.nil?
     return if (9..17).include?(time.hour)
 
     errors.add(:time, 'must be within trading hours (9 AM to 5 PM)')
